@@ -1,17 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.BillReminder" parent="Theme.Material3.Light">
-        <!--        <item name="colorPrimary">@color/colorPrimary</item>-->
-        <!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-        <item name="colorOnPrimary">@android:color/black</item>
-        <!--        <item name="colorAccent">@color/colorAccent</item>-->
+<!--        -->
+<!--        <item name="colorOnPrimary">@android:color/black</item>-->
 
-        <item name="colorOnSecondary">@android:color/white</item>
-    </style>
-
-    <style name="customCard" parent="Widget.MaterialComponents.CardView">
-        <item name="android:focusable">true</item>
-        <item name="android:clickable">true</item>
+<!--        <item name="colorOnSecondary">@android:color/white</item>-->
     </style>
 
 </resources>

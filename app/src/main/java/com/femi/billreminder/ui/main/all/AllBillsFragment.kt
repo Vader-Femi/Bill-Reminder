@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.femi.billreminder.database.BillDatabase
 import com.femi.billreminder.database.entity.Bill
-import com.femi.billreminder.databinding.FragmentBillsBinding
+import com.femi.billreminder.databinding.FragmentAllBillsBinding
 import com.femi.billreminder.repository.BillRepository
 import com.femi.billreminder.ui.base.ViewModelFactory
 import com.femi.billreminder.ui.bill.detail.BillDetailActivity
@@ -21,7 +21,7 @@ import com.femi.billreminder.utils.BILL_ID
 class AllBillsFragment : Fragment() {
 
     private lateinit var adapter: AllBillsAdapter
-    private lateinit var binding: FragmentBillsBinding
+    private lateinit var binding: FragmentAllBillsBinding
 
     private lateinit var allBillsViewModel: AllBillsViewModel
 
@@ -29,7 +29,7 @@ class AllBillsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = FragmentBillsBinding.inflate(inflater, container, false)
+        binding = FragmentAllBillsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
