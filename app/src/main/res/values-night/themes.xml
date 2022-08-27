@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Base.Theme.BillReminder" parent="Theme.Material3.DayNight">
+
+<!--        <item name="colorPrimary">@color/colorPrimary</item>-->
+        <item name="colorOnPrimary">@android:color/white</item>
+
+        <item name="colorOnSecondary">@android:color/black</item>
+
+    </style>
+
+</resources>

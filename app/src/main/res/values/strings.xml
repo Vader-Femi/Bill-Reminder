@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Bill Reminder</string>
+    <string name="title_add_bill">Add Bill</string>
+    <string name="title_bill_detail">Bill Detail</string>
+    <string name="validation_filled">Must be filled</string>
+    <string name="title_unpaid_bill">No bill(s) unpaid</string>
+    <string name="title_paid_bill">No bill(s) paid</string>
+    <string name="title_bill">No bill(s)</string>
+    <string name="menu_all_bills">All Bills</string>
+    <string name="menu_bills_paid">Bills paid</string>
+    <string name="menu_bills_unpaid">Bills Unpaid</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="amount">Amount</string>
+    <string name="date">Date</string>
+    <string name="update_bill">Update bill</string>
+    <string name="save">Save</string>
+    <string name="enter_bill_title">Enter bill title</string>
+    <string name="enter_bill_description">Enter bill description</string>
+    <string name="enter_bill_amount">Enter bill amount</string>
+    <string name="add_bill_payment_date">Add bill payment date</string>
+    <string name="snackbar_undo">Undo</string>
+    <string name="paid">Paid</string>
+    <string name="unpaid">Unpaid</string>
+    <string name="pay">Paid</string>
+    <string name="unpay">Not Paid</string>
+</resources>
