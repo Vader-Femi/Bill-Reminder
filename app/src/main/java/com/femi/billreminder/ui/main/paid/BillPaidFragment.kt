@@ -1,13 +1,11 @@
 package com.femi.billreminder.ui.main.paid
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.femi.billreminder.R
@@ -17,7 +15,7 @@ import com.femi.billreminder.databinding.FragmentBillPaidBinding
 import com.femi.billreminder.repository.BillRepository
 import com.femi.billreminder.ui.base.ViewModelFactory
 import com.femi.billreminder.ui.bill.detail.BillDetailActivity
-import com.femi.billreminder.utils.BILL_ID
+import com.femi.billreminder.utils.getBillIntent
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -80,11 +78,7 @@ class BillPaidFragment : Fragment() {
 
         },
             { bill ->
-                val intent = Intent(context, BillDetailActivity::class.java)
-                val bundle = Bundle()
-                bundle.putSerializable(BILL_ID, bill)
-                intent.putExtras(bundle)
-                startActivity(intent)
+                startActivity(activity?.getBillIntent(BillDetailActivity::class.java, bill))
             })
     }
 

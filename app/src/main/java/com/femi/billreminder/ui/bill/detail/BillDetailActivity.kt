@@ -8,7 +8,7 @@ import com.femi.billreminder.database.entity.Bill
 import com.femi.billreminder.databinding.ActivityBillDetailBinding
 import com.femi.billreminder.repository.BillRepository
 import com.femi.billreminder.ui.base.ViewModelFactory
-import com.femi.billreminder.utils.BILL_ID
+import com.femi.billreminder.utils.EXTRA_BILL
 import com.femi.billreminder.utils.RoomConverters
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -26,7 +26,7 @@ class BillDetailActivity : AppCompatActivity() {
         setupViewModel()
 
         val bundle = intent.extras
-        val bill: Bill = bundle?.getSerializable(BILL_ID) as Bill
+        val bill: Bill = bundle?.getSerializable(EXTRA_BILL) as Bill
 
         val localeID = Locale.getDefault()
 
@@ -37,7 +37,7 @@ class BillDetailActivity : AppCompatActivity() {
             val date = sdf.format(RoomConverters.dateToLong(bill.date))
 
             binding.tvTitle.text = bill.title
-            binding.tvContent.text = bill.content
+            binding.tvDescription.text = bill.description
             binding.tvAmount.text = amount
             binding.tvDate.text = date
         }
@@ -73,10 +73,6 @@ class BillDetailActivity : AppCompatActivity() {
                 this,
                 viewModelFactory
             )[BillDetailViewModel::class.java]
-    }
-
-    private fun updateBill(bill: Bill) {
-        billDetailViewModel.updateBill(bill)
     }
 
     private fun deleteBill(bill: Bill) {

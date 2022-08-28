@@ -30,9 +30,8 @@ class BillUnpaidAdapter(
             override fun areContentsTheSame(oldItem: Bill, newItem: Bill): Boolean {
                 return ((oldItem.id == oldItem.id) &&
                         (oldItem.title == newItem.title) &&
-                        (oldItem.content == oldItem.content) &&
+                        (oldItem.description == oldItem.description) &&
                         (oldItem.amount == oldItem.amount) &&
-                        (oldItem.remaining == oldItem.remaining) &&
                         (oldItem.date == oldItem.date) &&
                         (oldItem.paid == newItem.paid))
             }
@@ -43,7 +42,7 @@ class BillUnpaidAdapter(
         private val contentBinding = ItemBillUnpaidBinding.bind(itemView)
         val cvContainer: MaterialCardView = contentBinding.cvContainer
         val tvTitle: MaterialTextView = contentBinding.tvTitle
-        val tvContent: MaterialTextView = contentBinding.tvContent
+        val tvDescription: MaterialTextView = contentBinding.tvDescription
         val tvAmount: MaterialTextView = contentBinding.tvAmount
         val tvDate: MaterialTextView = contentBinding.tvDate
         val btnPaid: MaterialButton = contentBinding.btnPaid
@@ -67,7 +66,7 @@ class BillUnpaidAdapter(
                 val date = sdf.format(bill.date)
 
                 tvTitle.text = bill.title
-                tvContent.text = bill.content
+                tvDescription.text = bill.description
                 tvAmount.text = amount
                 tvDate.text = date
 

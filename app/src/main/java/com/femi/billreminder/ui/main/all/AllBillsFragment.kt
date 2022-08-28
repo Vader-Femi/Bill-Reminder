@@ -1,7 +1,6 @@
 package com.femi.billreminder.ui.main.all
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,7 @@ import com.femi.billreminder.databinding.FragmentAllBillsBinding
 import com.femi.billreminder.repository.BillRepository
 import com.femi.billreminder.ui.base.ViewModelFactory
 import com.femi.billreminder.ui.bill.detail.BillDetailActivity
-import com.femi.billreminder.utils.BILL_ID
+import com.femi.billreminder.utils.getBillIntent
 
 
 class AllBillsFragment : Fragment() {
@@ -64,11 +63,7 @@ class AllBillsFragment : Fragment() {
 
     private fun initAdapter() {
         adapter = AllBillsAdapter(requireContext()) { bill ->
-            val intent = Intent(context, BillDetailActivity::class.java)
-            val bundle = Bundle()
-            bundle.putSerializable(BILL_ID, bill)
-            intent.putExtras(bundle)
-            startActivity(intent)
+            startActivity(activity?.getBillIntent(BillDetailActivity::class.java, bill))
         }
     }
 

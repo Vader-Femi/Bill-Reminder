@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.femi.billreminder"
-        minSdk 22
+        minSdk 23
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -52,6 +52,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     kapt "androidx.room:room-compiler:$room_version"
 
-
+    //Work manager
+    implementation 'androidx.work:work-runtime-ktx:2.7.1'
 
 }

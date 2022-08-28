@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.femi.billreminder.R
 import com.femi.billreminder.database.entity.Bill
-import com.femi.billreminder.databinding.ItemBillsBinding
+import com.femi.billreminder.databinding.ItemAllBillsBinding
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textview.MaterialTextView
 import java.text.NumberFormat
@@ -20,7 +20,7 @@ import java.util.*
 class AllBillsAdapter(
     private val context: Context?,
     private val showDetail: (Bill) -> Unit,
-) : ListAdapter<Bill, AllBillsAdapter.BillsViewHolder>(COMPARATOR) {
+) : ListAdapter<Bill, AllBillsAdapter.AllBillsViewHolder>(COMPARATOR) {
 
     companion object {
         private val COMPARATOR = object : DiffUtil.ItemCallback<Bill>() {
@@ -31,34 +31,33 @@ class AllBillsAdapter(
             override fun areContentsTheSame(oldItem: Bill, newItem: Bill): Boolean {
                 return ((oldItem.id == oldItem.id) &&
                         (oldItem.title == newItem.title) &&
-                        (oldItem.content == oldItem.content) &&
+                        (oldItem.description == oldItem.description) &&
                         (oldItem.amount == oldItem.amount) &&
-                        (oldItem.remaining == oldItem.remaining) &&
                         (oldItem.date == oldItem.date) &&
                         (oldItem.paid == newItem.paid))
             }
         }
     }
 
-    inner class BillsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val contentBinding = ItemBillsBinding.bind(itemView)
+    inner class AllBillsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val contentBinding = ItemAllBillsBinding.bind(itemView)
         val cvContainer: MaterialCardView = contentBinding.cvContainer
         val tvTitle: MaterialTextView = contentBinding.tvTitle
-        val tvContent: MaterialTextView = contentBinding.tvContent
+        val tvDescription: MaterialTextView = contentBinding.tvDescription
         val tvAmount: MaterialTextView = contentBinding.tvAmount
         val tvDate: MaterialTextView = contentBinding.tvDate
         val tvPaid: MaterialTextView = contentBinding.tvPaid
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllBillsAdapter.BillsViewHolder {
-        return BillsViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllBillsAdapter.AllBillsViewHolder {
+        return AllBillsViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_bills, parent, false)
+                .inflate(R.layout.item_all_bills, parent, false)
         )
     }
 
 
-    override fun onBindViewHolder(holder: AllBillsAdapter.BillsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AllBillsAdapter.AllBillsViewHolder, position: Int) {
         getItem(position).let { bill ->
             holder.apply {
 
@@ -69,7 +68,7 @@ class AllBillsAdapter(
                 val date = sdf.format(bill.date)
 
                 tvTitle.text = bill.title
-                tvContent.text = bill.content
+                tvDescription.text = bill.description
                 tvAmount.text = amount
                 tvDate.text = date
 

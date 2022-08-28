@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_content"
+            android:id="@+id/tv_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@+id/btn_paid"
@@ -40,7 +40,7 @@
             android:textSize="22sp"
             app:layout_constraintEnd_toStartOf="@+id/btn_paid"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_content" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_description" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_date"

@@ -15,14 +15,12 @@ import com.femi.billreminder.databinding.FragmentUpdateBillBinding
 import com.femi.billreminder.repository.BillRepository
 import com.femi.billreminder.ui.base.ViewModelFactory
 import com.femi.billreminder.ui.main.MainActivity
-import com.femi.billreminder.utils.BILL_ID
 import com.femi.billreminder.utils.RoomConverters
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.runBlocking
 import java.sql.Date
-import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -48,17 +46,12 @@ class UpdateBillSheet(val bill: Bill) : BottomSheetDialogFragment() {
         activity = requireActivity()
         setupViewModel()
 
-        val localeID = Locale.getDefault()
-
-        val formatCurrency = NumberFormat.getCurrencyInstance(localeID)
         bill.let {
-
-            val amount = formatCurrency.format(bill.amount.toDouble())
             val sdf = SimpleDateFormat("EEEE, MMMM d, yyyy", Locale.getDefault())
             val date = sdf.format(RoomConverters.dateToLong(bill.date))
 
             binding.edtTitle.setText(bill.title)
-            binding.edtContent.setText(bill.content)
+            binding.edtDescription.setText(bill.description)
             binding.edtAmount.setText(bill.amount.toDouble().toString())
             binding.edtDate.setText(date)
             chosenDate = bill.date
@@ -70,13 +63,13 @@ class UpdateBillSheet(val bill: Bill) : BottomSheetDialogFragment() {
 
         binding.btnSave.setOnClickListener {
             val title = binding.edtTitle.text.toString()
-            val content = binding.edtContent.text.toString()
+            val description = binding.edtDescription.text.toString()
             val amount = binding.edtAmount.text.toString()
             val date = binding.edtDate.text.toString()
 
             when {
                 title.isEmpty() -> binding.edtTitle.error = getString(R.string.validation_filled)
-                content.isEmpty() -> binding.edtContent.error =
+                description.isEmpty() -> binding.edtDescription.error =
                     getString(R.string.validation_filled)
                 amount.isEmpty() -> binding.edtAmount.error = getString(R.string.validation_filled)
                 date.isEmpty() -> binding.edtDate.error = getString(R.string.validation_filled)
@@ -84,16 +77,13 @@ class UpdateBillSheet(val bill: Bill) : BottomSheetDialogFragment() {
                     val bill = Bill(
                         bill.id,
                         title,
-                        content,
-                        amount.toBigDecimal(),
-                        amount.toBigDecimal(),
+                        description,
+                        amount.toDouble().toBigDecimal(),
                         chosenDate,
                         bill.paid
                     )
 
-                    runBlocking {
-                        updateBill(bill)
-                    }
+                    updateBill(bill)
 
                     Toast.makeText(activity, "Bill updated", Toast.LENGTH_SHORT).show()
 
@@ -108,7 +98,6 @@ class UpdateBillSheet(val bill: Bill) : BottomSheetDialogFragment() {
     }
 
     private fun showDPD() {
-
         val today = MaterialDatePicker.todayInUtcMilliseconds()
         val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
         calendar.timeInMillis = today
