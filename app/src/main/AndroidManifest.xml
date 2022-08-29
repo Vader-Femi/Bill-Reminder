@@ -4,6 +4,7 @@
     package="com.femi.billreminder">
 
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:name=".notifications.ReminderNotifications"

@@ -1,15 +1,20 @@
 package com.femi.billreminder.ui.bill.detail
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.femi.billreminder.R
 import com.femi.billreminder.database.BillDatabase
 import com.femi.billreminder.database.entity.Bill
 import com.femi.billreminder.databinding.ActivityBillDetailBinding
 import com.femi.billreminder.repository.BillRepository
 import com.femi.billreminder.ui.base.ViewModelFactory
+import com.femi.billreminder.ui.main.MainActivity
 import com.femi.billreminder.utils.EXTRA_BILL
 import com.femi.billreminder.utils.RoomConverters
+import com.femi.billreminder.utils.cancelAlarm
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -45,7 +50,11 @@ class BillDetailActivity : AppCompatActivity() {
         bill.let {
             binding.fab.setOnClickListener {
 
+                this.cancelAlarm(bill)
+
                 deleteBill(bill)
+
+                Toast.makeText(this, getString(R.string.bill_deleted), Toast.LENGTH_SHORT).show()
 
                 finish()
             }
@@ -80,7 +89,14 @@ class BillDetailActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        finish()
+        if (isTaskRoot){
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
+        }else{
+            finish()
+        }
         return super.onSupportNavigateUp()
     }
 }

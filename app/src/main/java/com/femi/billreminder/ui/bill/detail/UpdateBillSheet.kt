@@ -16,10 +16,11 @@ import com.femi.billreminder.repository.BillRepository
 import com.femi.billreminder.ui.base.ViewModelFactory
 import com.femi.billreminder.ui.main.MainActivity
 import com.femi.billreminder.utils.RoomConverters
+import com.femi.billreminder.utils.cancelAlarm
+import com.femi.billreminder.utils.setAlarm
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
-import kotlinx.coroutines.runBlocking
 import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.*
@@ -74,7 +75,7 @@ class UpdateBillSheet(val bill: Bill) : BottomSheetDialogFragment() {
                 amount.isEmpty() -> binding.edtAmount.error = getString(R.string.validation_filled)
                 date.isEmpty() -> binding.edtDate.error = getString(R.string.validation_filled)
                 else -> {
-                    val bill = Bill(
+                    val newBill = Bill(
                         bill.id,
                         title,
                         description,
@@ -83,14 +84,8 @@ class UpdateBillSheet(val bill: Bill) : BottomSheetDialogFragment() {
                         bill.paid
                     )
 
-                    updateBill(bill)
+                    showReminderDpd(newBill)
 
-                    Toast.makeText(activity, "Bill updated", Toast.LENGTH_SHORT).show()
-
-                    val intent = Intent(context, MainActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
-                    activity.finish()
                 }
             }
         }
@@ -131,6 +126,55 @@ class UpdateBillSheet(val bill: Bill) : BottomSheetDialogFragment() {
             binding.edtDate.setText(date)
 
         }
+    }
+
+    private fun showReminderDpd(newBill: Bill) {
+
+        val today = MaterialDatePicker.todayInUtcMilliseconds()
+        val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+        calendar.timeInMillis = today
+        val startDate = calendar.timeInMillis
+        val endDate = chosenDate.time
+
+        val constraints: CalendarConstraints = CalendarConstraints.Builder()
+            .setOpenAt(startDate)
+            .setStart(startDate)
+            .setEnd(endDate)
+            .build()
+
+        val datePicker: MaterialDatePicker<Long> = MaterialDatePicker
+            .Builder
+            .datePicker()
+            .setCalendarConstraints(constraints)
+            .setInputMode(MaterialDatePicker.INPUT_MODE_CALENDAR)
+            .setTitleText(getString(R.string.when_do_you_want_to_be_reminded))
+            .build()
+        datePicker.show(parentFragmentManager, "DATE_PICKER")
+
+        datePicker.addOnPositiveButtonClickListener {
+
+            if (it >= startDate && it <= chosenDate.time) {
+
+                activity.cancelAlarm(bill)
+                activity.setAlarm(newBill, it)
+
+                updateBill(newBill)
+
+                Toast.makeText(activity, "Bill updated", Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(context, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                activity.finish()
+
+            } else
+                Toast.makeText(context,
+                    getString(R.string.select_a_valid_reminder_date),
+                    Toast.LENGTH_SHORT)
+                    .show()
+
+        }
+
     }
 
     private fun setupViewModel() {

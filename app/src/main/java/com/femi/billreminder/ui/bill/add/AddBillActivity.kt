@@ -1,9 +1,6 @@
 package com.femi.billreminder.ui.bill.add
 
-import android.app.AlarmManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -19,14 +16,10 @@ import com.femi.billreminder.database.BillDatabase
 import com.femi.billreminder.database.entity.Bill
 import com.femi.billreminder.databinding.ActivityAddBillBinding
 import com.femi.billreminder.notifications.NotificationWorker
-import com.femi.billreminder.notifications.ReminderReceiver
 import com.femi.billreminder.repository.BillRepository
 import com.femi.billreminder.ui.base.ViewModelFactory
-import com.femi.billreminder.ui.bill.detail.BillDetailActivity
-import com.femi.billreminder.utils.EXTRA_BILL
 import com.femi.billreminder.utils.RoomConverters
-import com.femi.billreminder.utils.getBillIntent
-import com.femi.billreminder.utils.getReminderIntent
+import com.femi.billreminder.utils.setAlarm
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
@@ -34,7 +27,6 @@ import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
-
 
 class AddBillActivity : AppCompatActivity() {
 
@@ -171,7 +163,7 @@ class AddBillActivity : AppCompatActivity() {
 //
 //                createNotificationWorkRequest(bill, daysDelay)
 
-                createNotificationReminder(bill,it)
+                this.setAlarm(bill, it)
 
                 insertBill(bill)
 
@@ -207,23 +199,6 @@ class AddBillActivity : AppCompatActivity() {
             ExistingWorkPolicy.REPLACE,
             workRequest
         )
-    }
-
-    private fun createNotificationReminder(bill: Bill, alarmTime: Long) {
-
-        val pendingIntent = PendingIntent.getBroadcast(this,
-            0,
-            this.getReminderIntent(bill),
-            PendingIntent.FLAG_IMMUTABLE)
-
-        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-
-        alarmManager.setAndAllowWhileIdle(
-            AlarmManager.RTC,
-            alarmTime,
-            pendingIntent
-        )
-
     }
 
     private fun TextInputEditText.manageImeOption() {

@@ -10,6 +10,8 @@ import com.femi.billreminder.R
 import com.femi.billreminder.database.entity.Bill
 import com.femi.billreminder.ui.bill.detail.BillDetailActivity
 import com.femi.billreminder.utils.EXTRA_BILL
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ReminderNotificationService(
     private val context: Context,
@@ -33,17 +35,21 @@ class ReminderNotificationService(
             activityIntent,
             PendingIntent.FLAG_IMMUTABLE)
 
+        val sdf = SimpleDateFormat("EEEE, MMMM d, yyyy", Locale.getDefault())
+        val date = sdf.format(bill.date)
+
         val notification = NotificationCompat.Builder(context, REMINDER_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle(context.getString(R.string.bill_reminder_notification_title))
-            .setContentText("${context.getString(R.string.bill_reminder_notification_text)} - ${bill.title} ${
+            .setContentText("${context.getString(R.string.bill_reminder_notification_text)} ${bill.title} ${
                 context.getString(R.string.on)
-            } ${bill.date}")
+            } $date")
+            .setAutoCancel(true)
             .setContentIntent(activityPendingIntent)
             .build()
 
         notificationManager.notify(
-            1, notification
+            Calendar.getInstance().timeInMillis.toInt(), notification
         )
     }
 

@@ -33,4 +33,5 @@
     <string name="select_the_bill_due_date">Select the bill due date</string>
     <string name="select_a_future_date">Select a future date</string>
     <string name="select_a_valid_reminder_date">Select a date between today and your bill date</string>
+    <string name="bill_deleted">Bill deleted</string>
 </resources>
