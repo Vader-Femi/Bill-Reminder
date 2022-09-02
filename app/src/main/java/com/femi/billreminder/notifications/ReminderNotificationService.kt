@@ -49,7 +49,7 @@ class ReminderNotificationService(
             .build()
 
         notificationManager.notify(
-            Calendar.getInstance().timeInMillis.toInt(), notification
+            System.currentTimeMillis().toInt(), notification
         )
     }
 

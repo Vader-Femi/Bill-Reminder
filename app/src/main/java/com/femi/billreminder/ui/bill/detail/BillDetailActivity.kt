@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.femi.billreminder.R
 import com.femi.billreminder.database.BillDatabase
 import com.femi.billreminder.database.entity.Bill
@@ -15,6 +16,7 @@ import com.femi.billreminder.ui.main.MainActivity
 import com.femi.billreminder.utils.EXTRA_BILL
 import com.femi.billreminder.utils.RoomConverters
 import com.femi.billreminder.utils.cancelAlarm
+import com.femi.billreminder.utils.deleteAlarm
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -51,6 +53,7 @@ class BillDetailActivity : AppCompatActivity() {
             binding.fab.setOnClickListener {
 
                 this.cancelAlarm(bill)
+                lifecycleScope.deleteAlarm(bill, this)
 
                 deleteBill(bill)
 

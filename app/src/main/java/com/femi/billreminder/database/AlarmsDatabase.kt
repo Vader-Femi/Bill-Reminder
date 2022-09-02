@@ -5,20 +5,22 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.femi.billreminder.database.dao.AlarmsDAO
 import com.femi.billreminder.database.dao.BillDao
+import com.femi.billreminder.database.entity.Alarms
 import com.femi.billreminder.database.entity.Bill
 import com.femi.billreminder.utils.RoomConverters
 
-@Database(entities = [Bill::class], version = 1, exportSchema = false)
+@Database(entities = [Alarms::class], version = 1, exportSchema = false)
 @TypeConverters(RoomConverters::class)
-abstract class BillDatabase : RoomDatabase() {
+abstract class AlarmsDatabase : RoomDatabase() {
 
-    abstract fun billDao(): BillDao
+    abstract fun alarmsDao(): AlarmsDAO
 
     companion object {
-        private const val databaseName = "billreminder.db.bills"
+        private const val databaseName = "billreminder.db.alarms"
 
-        private var instance: BillDatabase? = null
+        private var instance: AlarmsDatabase? = null
 
         private val LOCK = Any()
 
@@ -30,7 +32,7 @@ abstract class BillDatabase : RoomDatabase() {
 
         private fun createDatabase(context: Context) = Room.databaseBuilder(
             context,
-            BillDatabase::class.java,
+            AlarmsDatabase::class.java,
             databaseName
         ).fallbackToDestructiveMigration()
             .build()

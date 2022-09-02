@@ -7,20 +7,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.femi.billreminder.R
+import com.femi.billreminder.database.AlarmsDatabase
 import com.femi.billreminder.database.BillDatabase
+import com.femi.billreminder.database.entity.Alarms
 import com.femi.billreminder.database.entity.Bill
 import com.femi.billreminder.databinding.FragmentUpdateBillBinding
 import com.femi.billreminder.repository.BillRepository
 import com.femi.billreminder.ui.base.ViewModelFactory
 import com.femi.billreminder.ui.main.MainActivity
-import com.femi.billreminder.utils.RoomConverters
-import com.femi.billreminder.utils.cancelAlarm
-import com.femi.billreminder.utils.setAlarm
+import com.femi.billreminder.utils.*
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.*
@@ -156,7 +161,11 @@ class UpdateBillSheet(val bill: Bill) : BottomSheetDialogFragment() {
             if (it >= startDate && it <= chosenDate.time) {
 
                 activity.cancelAlarm(bill)
+                lifecycleScope.deleteAlarm(bill, context)
+
+
                 activity.setAlarm(newBill, it)
+                lifecycleScope.addAlarm(bill,context,it)
 
                 updateBill(newBill)
 

@@ -7,22 +7,28 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.workDataOf
 import com.femi.billreminder.R
+import com.femi.billreminder.database.AlarmsDatabase
 import com.femi.billreminder.database.BillDatabase
+import com.femi.billreminder.database.entity.Alarms
 import com.femi.billreminder.database.entity.Bill
 import com.femi.billreminder.databinding.ActivityAddBillBinding
 import com.femi.billreminder.notifications.NotificationWorker
 import com.femi.billreminder.repository.BillRepository
 import com.femi.billreminder.ui.base.ViewModelFactory
 import com.femi.billreminder.utils.RoomConverters
+import com.femi.billreminder.utils.addAlarm
 import com.femi.billreminder.utils.setAlarm
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.*
@@ -164,6 +170,7 @@ class AddBillActivity : AppCompatActivity() {
 //                createNotificationWorkRequest(bill, daysDelay)
 
                 this.setAlarm(bill, it)
+                lifecycleScope.addAlarm(bill,this,it)
 
                 insertBill(bill)
 

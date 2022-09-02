@@ -4,10 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayout
 import com.femi.billreminder.R
 import com.femi.billreminder.databinding.ActivityMainBinding
 import com.femi.billreminder.ui.bill.add.AddBillActivity
+import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {
 
