@@ -47,9 +47,7 @@ class BillDetailActivity : AppCompatActivity() {
             binding.tvDescription.text = bill.description
             binding.tvAmount.text = amount
             binding.tvDate.text = date
-        }
 
-        bill.let {
             binding.fab.setOnClickListener {
 
                 this.cancelAlarm(bill)
@@ -62,6 +60,20 @@ class BillDetailActivity : AppCompatActivity() {
                 finish()
             }
         }
+
+//        bill.let {
+//            binding.fab.setOnClickListener {
+//
+//                this.cancelAlarm(bill)
+//                lifecycleScope.deleteAlarm(bill, this)
+//
+//                deleteBill(bill)
+//
+//                Toast.makeText(this, getString(R.string.bill_deleted), Toast.LENGTH_SHORT).show()
+//
+//                finish()
+//            }
+//        }
 
         binding.cvTitle.setOnClickListener {
             if (!bill.paid.toBoolean())
