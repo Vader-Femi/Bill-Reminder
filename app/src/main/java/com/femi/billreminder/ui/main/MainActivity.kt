@@ -15,37 +15,63 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
 
-        binding.tabLayout.tabGravity = TabLayout.GRAVITY_FILL
+//        binding.tabLayout.tabGravity = TabLayout.GRAVITY_FILL
+//
+//        binding.tabLayout.addTab(binding.tabLayout.newTab()
+//            .setText(getString(R.string.menu_bills_unpaid)))
+//        binding.tabLayout.addTab(binding.tabLayout.newTab()
+//            .setText(getString(R.string.menu_bills_paid)))
+//        binding.tabLayout.addTab(binding.tabLayout.newTab()
+//            .setText(getString(R.string.menu_all_bills)))
+//
+//        val tabsAdapter =
+//            TabsMainAdapter(supportFragmentManager, binding.tabLayout.tabCount, lifecycle)
+//        binding.viewPager2.adapter = tabsAdapter
+//
+//        val myPageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
+//            override fun onPageSelected(position: Int) {
+//                binding.tabLayout.getTabAt(position)?.select()
+//            }
+//        }
+//        binding.viewPager2.registerOnPageChangeCallback(myPageChangeCallback)
+//
+//        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+//            override fun onTabSelected(tab: TabLayout.Tab) {
+//                binding.viewPager2.currentItem = tab.position
+//            }
+//
+//            override fun onTabUnselected(tab: TabLayout.Tab) {
+//            }
+//
+//            override fun onTabReselected(tab: TabLayout.Tab) {
+//            }
+//        })
 
-        binding.tabLayout.addTab(binding.tabLayout.newTab()
-            .setText(getString(R.string.menu_bills_unpaid)))
-        binding.tabLayout.addTab(binding.tabLayout.newTab()
-            .setText(getString(R.string.menu_bills_paid)))
-        binding.tabLayout.addTab(binding.tabLayout.newTab()
-            .setText(getString(R.string.menu_all_bills)))
+        val bottomTabsAdapter =
+            TabsMainAdapter(supportFragmentManager, 3, lifecycle)
+        binding.viewPager2.adapter = bottomTabsAdapter
 
-        val tabsAdapter =
-            TabsMainAdapter(supportFragmentManager, binding.tabLayout.tabCount, lifecycle)
-        binding.viewPager2.adapter = tabsAdapter
-
-        val myPageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
+        val bottomPageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                binding.tabLayout.getTabAt(position)?.select()
+                binding.bottomBar.menu.getItem(position).isChecked = true
             }
         }
-        binding.viewPager2.registerOnPageChangeCallback(myPageChangeCallback)
+        binding.viewPager2.registerOnPageChangeCallback(bottomPageChangeCallback)
 
-        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                binding.viewPager2.currentItem = tab.position
+        binding.bottomBar.setOnItemSelectedListener  {
+            when (it.itemId) {
+                R.id.menu_unpaid -> {
+                    binding.viewPager2.currentItem = 0
+                }
+                R.id.menu_paid -> {
+                    binding.viewPager2.currentItem = 1
+                }
+                R.id.menu_all_bills -> {
+                    binding.viewPager2.currentItem = 2
+                }
             }
-
-            override fun onTabUnselected(tab: TabLayout.Tab) {
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab) {
-            }
-        })
+            true
+        }
 
         binding.fab.setOnClickListener {
             val intent = Intent(this, AddBillActivity::class.java)

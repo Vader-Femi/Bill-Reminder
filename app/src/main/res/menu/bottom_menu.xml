@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_unpaid"
+        android:icon="@drawable/ic_hourglass_empty"
+        android:title="@string/menu_bills_unpaid"/>
+    <item
+        android:id="@+id/menu_paid"
+        android:icon="@drawable/ic_money"
+        android:title="@string/menu_bills_paid"/>
+    <item
+        android:id="@+id/menu_all_bills"
+        android:icon="@drawable/ic_wallet"
+        android:title="@string/menu_all_bills"/>
+
+</menu>
