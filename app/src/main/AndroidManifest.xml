@@ -26,12 +26,10 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name=".notifications.ReminderReceiver"
             android:enabled="true"
             android:exported="true" />
-
         <activity
             android:name="com.femi.billreminder.ui.main.MainActivity"
             android:exported="true">
@@ -42,7 +40,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.femi.billreminder.ui.bill.detail.BillDetailActivity"
             android:label="@string/title_bill_detail" />
