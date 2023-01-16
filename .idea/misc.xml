@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/ProjectFiles/Kotlin/BillReminder/app/src/main/res/drawable-v24/ic_add.xml" value="0.1545" />
+        <entry key="..\:/ProjectFiles/Kotlin/BillReminder/app/src/main/res/drawable-v24/ic_check.xml" value="0.1545" />
         <entry key="..\:/ProjectFiles/Kotlin/BillReminder/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1545" />
         <entry key="..\:/ProjectFiles/Kotlin/BillReminder/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1545" />
         <entry key="..\:/ProjectFiles/Kotlin/BillReminder/app/src/main/res/layout/activity_add_bill.xml" value="0.22447916666666667" />
