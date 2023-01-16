@@ -29,11 +29,11 @@ class AllBillsAdapter(
             }
 
             override fun areContentsTheSame(oldItem: Bill, newItem: Bill): Boolean {
-                return ((oldItem.id == newItem.id) &&
+                return ((oldItem.id == oldItem.id) &&
                         (oldItem.title == newItem.title) &&
-                        (oldItem.description == newItem.description) &&
-                        (oldItem.amount == newItem.amount) &&
-                        (oldItem.date == newItem.date) &&
+                        (oldItem.description == oldItem.description) &&
+                        (oldItem.amount == oldItem.amount) &&
+                        (oldItem.date == oldItem.date) &&
                         (oldItem.paid == newItem.paid))
             }
         }
@@ -73,7 +73,6 @@ class AllBillsAdapter(
                 tvDate.text = date
 
                 val paid = bill.paid.toBoolean()
-
                 context?.let { context
                     if (paid) {
                         tvPaid.setTextColor(
